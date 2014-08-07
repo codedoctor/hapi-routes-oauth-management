@@ -35,6 +35,5 @@ module.exports = loadServer = (cb) ->
     return cb err if err
     databaseCleaner loggingEnabled, (err) ->
       return cb err if err
-
       server.pack.register pluginConf, (err) ->
         cb err,server

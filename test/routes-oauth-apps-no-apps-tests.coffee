@@ -15,10 +15,7 @@ describe 'no apps in db', ->
       loadServer (err,serverResult) ->
         return cb err if err
         server = serverResult
-
         cb err
-        #setupServer server,(err) ->
-        #  cb err
 
     describe 'GET /oauth-apps', ->
       describe 'with NO credentials', ->

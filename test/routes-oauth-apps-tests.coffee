@@ -18,10 +18,8 @@ describe 'oauthApps in db', ->
       loadServer (err,serverResult) ->
         return cb err if err
         server = serverResult
-        setupServer server,(err) ->
-          return cb err if err
-          setupOauthApps server,(err) ->
-            cb err
+        setupOauthApps server,(err) ->
+          cb err
 
     describe 'GET /oauth-apps', ->
       describe 'with NO credentials', ->
