@@ -13,17 +13,50 @@ module.exports =
   oauthApp1:
     name: "app1"
     description: "This is a app 1"
-    isInternal: false
+    websiteUrl: 'http://somesite.com'
+    imageUrl: null
+    callbackUrl: null
+    notes: 'Some comment'
+    scopes: ['read','write']
+    revoked: 0
+    acceptTermsOfService: true
+    isPublished: true
+    organizationName: 'codedoctor'
+    organizationUrl: 'http://somesite.com'
+    tosAcceptanceDate : null
+    redirectUrls: []
 
   oauthApp2:
     name: "app2"
     description: "This is a app 2"
-    isInternal: false
+    websiteUrl: 'http://somesite.com'
+    imageUrl: null
+    callbackUrl: null
+    notes: 'Some comment'
+    scopes: ['read','write']
+    revoked: 0
+    acceptTermsOfService: true
+    isPublished: true
+    organizationName: 'codedoctor'
+    organizationUrl: 'http://somesite.com'
+    tosAcceptanceDate : null
+    redirectUrls: []
 
   oauthAppInternal1:
     name: "app3"
     description: "This is a app 3"
-    isInternal: true
+    websiteUrl: 'http://somesite.com'
+    imageUrl: null
+    callbackUrl: null
+    notes: 'Some comment'
+    scopes: ['read','write']
+    revoked: 0
+    acceptTermsOfService: true
+    isPublished: true
+    organizationName: 'codedoctor'
+    organizationUrl: 'http://somesite.com'
+    tosAcceptanceDate : null
+    redirectUrls: []
 
 
   invalidOauthScopeId:'0123456789012345678900ba'
@@ -35,17 +68,20 @@ module.exports =
   oauthScope1:
     name: "scope1"
     description: "This is scope 1"
-    isInternal: false
+    developerDescription: "dev desc 1"
+    roles: ['user','test']
 
   oauthScope2:
     name: "scope2"
     description: "This is scope 2"
-    isInternal: false
+    developerDescription: "dev desc 2"
+    roles: ['user','test']
 
   oauthScopeInternal1:
     name: "scope3"
     description: "This is scope 3"
-    isInternal: true
+    developerDescription: "dev desc 3"
+    roles: ['user','test']
 
 
 

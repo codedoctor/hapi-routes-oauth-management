@@ -58,10 +58,27 @@
     allowUnkown: true,
     stripUnknown: false
   }),
-  payloadOauthScopesPost: Joi.object().keys().options({
+  payloadOauthScopesPost: Joi.object().options({
     allowUnkown: true,
     stripUnknown: false
   }),
+
+  &#47;*
+    accountId:
+      type: mongoose.Schema.ObjectId
+      require: true
+    name:
+      type : String
+    description:
+      type : String
+      default: &#39;&#39;
+    developerDescription:
+      type : String
+      default: &#39;&#39;
+    roles:
+      type: [String]
+      default: -&gt; []
+   *&#47;
   paramsOauthAppsDelete: Joi.object().keys({
     oauthAppId: validateId.required()
   }),
@@ -86,7 +103,7 @@
 </dl>
     </div>
     <div id='footer'>
-  August 07, 14 13:13:41 by
+  August 07, 14 13:53:19 by
   <a href='https://github.com/coffeedoc/codo' title='CoffeeScript API documentation generator'>
     Codo
   </a>

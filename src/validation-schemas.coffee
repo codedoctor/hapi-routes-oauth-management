@@ -20,8 +20,24 @@ module.exports =
     )
 
   payloadOauthScopesPatch: Joi.object().keys().options({ allowUnkown: true, stripUnknown: false }) 
-  payloadOauthScopesPost: Joi.object().keys().options({ allowUnkown: true, stripUnknown: false })
+  payloadOauthScopesPost: Joi.object().options({ allowUnkown: true, stripUnknown: false })
 
+    ###
+      accountId:
+        type: mongoose.Schema.ObjectId
+        require: true
+      name:
+        type : String
+      description:
+        type : String
+        default: ''
+      developerDescription:
+        type : String
+        default: ''
+      roles:
+        type: [String]
+        default: -> []
+    ###
 
   paramsOauthAppsDelete: Joi.object().keys(
       oauthAppId: validateId.required() 
