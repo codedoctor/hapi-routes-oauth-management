@@ -91,12 +91,13 @@ module.exports = (plugin,options = {}) ->
 
 
   plugin.route
-    path: "/#{options.routesAppsBaseName}/{oauthScopeId}"
+    path: "/#{options.routesAppsBaseName}/{oauthAppId}"
     method: "DELETE"
     config:
       validate:
         params: validationSchemas.paramsOauthAppsDelete
     handler: (request, reply) ->
+      console.log 'UUUUUUU'
       fnAccountId request, (err,accountId) ->
         return reply err if err
 
@@ -104,13 +105,13 @@ module.exports = (plugin,options = {}) ->
         isInServerAdmin = fnIsInServerAdmin(request)
         return reply Boom.forbidden("'#{options.serverAdminScopeName}' #{i18n.serverAdminScopeRequired}") unless isInServerAdmin
 
-        methodsOauthApps().destroy request.params.oauthScopeId, null,  (err,oauthApp) ->
+        methodsOauthApps().destroy request.params.oauthAppId, null,  (err,oauthApp) ->
           return reply err if err
           
           reply().code(204)
 
   plugin.route
-    path: "/#{options.routesAppsBaseName}/{oauthScopeId}"
+    path: "/#{options.routesAppsBaseName}/{oauthAppId}"
     method: "PATCH"
     config:
       validate:
@@ -124,18 +125,18 @@ module.exports = (plugin,options = {}) ->
         isInServerAdmin = fnIsInServerAdmin(request)
         return reply Boom.forbidden("'#{options.serverAdminScopeName}' #{i18n.serverAdminScopeRequired}") unless isInServerAdmin
 
-        methodsOauthApps().get request.params.oauthScopeId,  null,  (err,oauthApp) ->
+        methodsOauthApps().get request.params.oauthAppId,  null,  (err,oauthApp) ->
           return reply err if err
           return reply Boom.notFound(request.url) unless oauthApp
 
           baseUrl = fnOauthAppsBaseUrl()
 
-          methodsOauthApps().patch request.params.oauthScopeId, request.payload, null,  (err,oauthApp) ->
+          methodsOauthApps().patch request.params.oauthAppId, request.payload, null,  (err,oauthApp) ->
             return reply err if err          
             reply(helperObjToRest.oauthApp(oauthApp,baseUrl,isInServerAdmin)).code(200)
 
   plugin.route
-    path: "/#{options.routesAppsBaseName}/{oauthScopeId}"
+    path: "/#{options.routesAppsBaseName}/{oauthAppId}"
     method: "GET"
     config:
       validate:
@@ -148,7 +149,7 @@ module.exports = (plugin,options = {}) ->
         
         isInServerAdmin = fnIsInServerAdmin(request)
 
-        methodsOauthApps().get request.params.oauthScopeId,  null,  (err,oauthApp) ->
+        methodsOauthApps().get request.params.oauthAppId,  null,  (err,oauthApp) ->
           return reply err if err
           return reply Boom.notFound(request.url) unless oauthApp
 

@@ -7,7 +7,7 @@ setupServer = require './support/setup-server'
 shouldHttp = require './support/should-http'
 shouldOauthScopes = require './support/should-oauth-scopes'
 
-describe 'NO ROLES IN DB', ->
+describe 'no scopes in db', ->
   server = null
 
   describe 'with server setup', ->
