@@ -49,7 +49,7 @@ module.exports = (grunt) ->
     mochacov:
       options:
         coveralls:
-          repoToken: "lWcfJ1cqTv65KAnDFDh9OiseWvXgv6E3Q"
+          repoToken: "TF9oo31ndzKeiTsrDfLZgybOrNlWSqeGQ"
         require: ['coffee-script/register','should']
       all: ['test/**/*-tests.coffee']
 
