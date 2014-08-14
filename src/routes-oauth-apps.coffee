@@ -8,27 +8,27 @@ i18n = require './i18n'
 validationSchemas = require './validation-schemas'
 
 module.exports = (plugin,options = {}) ->
-  Hoek.assert options.accountId, i18n.optionsAccountIdRequired
+  Hoek.assert options._tenantId, i18n.optionsAccountIdRequired
   Hoek.assert options.baseUrl,i18n.optionsBaseUrlRequired
   Hoek.assert options.routesAppsBaseName,i18n.optionsRoutesAppsBaseNameRequired
   Hoek.assert options.serverAdminScopeName,i18n.optionsServerAdminScopeNameRequired
 
-  hapiIdentityStore = -> plugin.plugins['hapi-identity-store']
-  Hoek.assert hapiIdentityStore(),i18n.couldNotFindPlugin
+  hapiOauthStoreMultiTenant = -> plugin.plugins['hapi-oauth-store-multi-tenant']
+  Hoek.assert hapiOauthStoreMultiTenant(),i18n.couldNotFindPlugin
 
-  methodsOauthApps = -> hapiIdentityStore().methods.oauthApps
+  methodsOauthApps = -> hapiOauthStoreMultiTenant().methods.oauthApps
   Hoek.assert methodsOauthApps(),i18n.couldNotFindMethodsOauthApps
 
   fnRaise404 = (request,reply) ->
     reply Boom.notFound("#{i18n.notFoundPrefix} #{options.baseUrl}#{request.path}")
 
   ###
-  Returns the accountId to use.
+  Returns the _tenantId to use.
   ###
   fnAccountId = (request,cb) ->
-    cb null, options.accountId
+    cb null, options._tenantId
 
-  fnAccountId = options.fnAccountId if options.accountId and _.isFunction(options.accountId)
+  fnAccountId = options.fnAccountId if options._tenantId and _.isFunction(options._tenantId)
 
   ###
   Determines if the current request is in serverAdmin scope
@@ -50,7 +50,7 @@ module.exports = (plugin,options = {}) ->
       validate:
         params: validationSchemas.paramsOauthAppsGet
     handler: (request, reply) ->
-      fnAccountId request, (err,accountId) ->
+      fnAccountId request, (err,_tenantId) ->
         return reply err if err
 
         isInServerAdmin = fnIsInServerAdmin(request)
@@ -60,7 +60,7 @@ module.exports = (plugin,options = {}) ->
         queryOptions.count = apiPagination.parseInt(request.query.count,20)
         queryOptions.where = isInternal : false unless isInServerAdmin
 
-        methodsOauthApps().all accountId, queryOptions,  (err,oauthAppsResult) ->
+        methodsOauthApps().all _tenantId, queryOptions,  (err,oauthAppsResult) ->
           return reply err if err
 
           baseUrl = fnOauthAppsBaseUrl()
@@ -77,13 +77,13 @@ module.exports = (plugin,options = {}) ->
       validate:
         payload: validationSchemas.payloadOauthAppsPost
     handler: (request, reply) ->
-      fnAccountId request, (err,accountId) ->
+      fnAccountId request, (err,_tenantId) ->
         return reply err if err
         return reply Boom.unauthorized(i18n.authorizationRequired) unless request.auth?.credentials
         isInServerAdmin = fnIsInServerAdmin(request)
         return reply Boom.forbidden("'#{options.serverAdminScopeName}' #{i18n.serverAdminScopeRequired}") unless isInServerAdmin
 
-        methodsOauthApps().create accountId, request.payload, null,  (err,oauthApp) ->
+        methodsOauthApps().create _tenantId, request.payload, null,  (err,oauthApp) ->
           return reply err if err
 
           baseUrl = fnOauthAppsBaseUrl()
@@ -98,7 +98,7 @@ module.exports = (plugin,options = {}) ->
         params: validationSchemas.paramsOauthAppsDelete
     handler: (request, reply) ->
       console.log 'UUUUUUU'
-      fnAccountId request, (err,accountId) ->
+      fnAccountId request, (err,_tenantId) ->
         return reply err if err
 
         return reply Boom.unauthorized(i18n.authorizationRequired) unless request.auth?.credentials
@@ -118,7 +118,7 @@ module.exports = (plugin,options = {}) ->
         params: validationSchemas.paramsOauthAppsPatch
         payload: validationSchemas.payloadOauthAppsPatch
     handler: (request, reply) ->
-      fnAccountId request, (err,accountId) ->
+      fnAccountId request, (err,_tenantId) ->
         return reply err if err
 
         return reply Boom.unauthorized(i18n.authorizationRequired) unless request.auth?.credentials
@@ -142,7 +142,7 @@ module.exports = (plugin,options = {}) ->
       validate:
         params: validationSchemas.paramsOauthAppsGetOne
     handler: (request, reply) ->
-      fnAccountId request, (err,accountId) ->
+      fnAccountId request, (err,_tenantId) ->
         return reply err if err
 
         return reply Boom.unauthorized(i18n.authorizationRequired) unless request.auth?.credentials

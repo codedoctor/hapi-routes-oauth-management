@@ -12,7 +12,7 @@ module.exports =
       description: oauthScope.description
 
     if isInAdminScope
-      res.accountId = oauthScope.accountId
+      res._tenantId = oauthScope._tenantId
       res.isInternal = oauthScope.isInternal
 
     res
@@ -27,7 +27,7 @@ module.exports =
       description: oauthApp.description
 
     if isInAdminScope
-      res.accountId = oauthApp.accountId
+      res._tenantId = oauthApp._tenantId
       res.isInternal = oauthApp.isInternal
 
     res

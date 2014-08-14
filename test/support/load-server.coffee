@@ -1,7 +1,7 @@
 _ = require 'underscore'
 databaseCleaner = require './database-cleaner'
 Hapi = require "hapi"
-hapiIdentityStore = require 'hapi-identity-store'
+hapiIdentityStore = require 'hapi-oauth-store-multi-tenant'
 index = require '../../lib/index'
 mongoose = require 'mongoose'
 
@@ -23,7 +23,7 @@ module.exports = loadServer = (cb) ->
       plugin: index
       options:
         clientId:  fixtures.clientId
-        accountId: fixtures.accountId
+        _tenantId: fixtures._tenantId
         baseUrl: "http://localhost:#{testPort}"
         realm: 'codedoctor'
         scope: null

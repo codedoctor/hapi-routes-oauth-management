@@ -23,7 +23,7 @@ module.exports =
   payloadOauthScopesPost: Joi.object().options({ allowUnkown: true, stripUnknown: false })
 
     ###
-      accountId:
+      _tenantId:
         type: mongoose.Schema.ObjectId
         require: true
       name:

@@ -8,7 +8,7 @@ module.exports =
     oauthScope.should.have.property "id"
 
     oauthScope.should.not.have.property "isInternal"
-    oauthScope.should.not.have.property "accountId"
+    oauthScope.should.not.have.property "_tenantId"
 
   isValidServerAdminOauthScope: (oauthScope) ->
     oauthScope.should.have.property "_url"
@@ -17,4 +17,4 @@ module.exports =
     oauthScope.should.have.property "id"
 
     oauthScope.should.have.property "isInternal"
-    oauthScope.should.have.property "accountId"
+    oauthScope.should.have.property "_tenantId"
