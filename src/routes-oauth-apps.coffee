@@ -97,7 +97,6 @@ module.exports = (plugin,options = {}) ->
       validate:
         params: validationSchemas.paramsOauthAppsDelete
     handler: (request, reply) ->
-      console.log 'UUUUUUU'
       fnAccountId request, (err,_tenantId) ->
         return reply err if err
 

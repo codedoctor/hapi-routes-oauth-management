@@ -5,7 +5,7 @@ module.exports = (server,cb) ->
   oauthScopes = [fixtures.oauthScope1,fixtures.oauthScope2,fixtures.oauthScopeInternal1]
   delete r.id for r in oauthScopes
 
-  methods = server.pack.plugins['hapi-oauth-store-multi-tenant'].methods
+  methods = server.plugins['hapi-oauth-store-multi-tenant'].methods
 
   addOauthScope = (oauthScopeData,cb) ->
     methods.oauthScopes.create fixtures._tenantId,oauthScopeData,null, (err,oauthScope) ->

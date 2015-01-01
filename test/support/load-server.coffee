@@ -15,12 +15,15 @@ loggingEnabled = false
 
 
 module.exports = loadServer = (cb) ->
-  server = new Hapi.Server testPort,testHost,{}
+  server = new Hapi.Server()
+  server.connection 
+            port: testPort
+            host: testHost
 
   pluginConf = [
-      plugin: hapiIdentityStore
+      register: hapiIdentityStore
     ,
-      plugin: index
+      register: index
       options:
         clientId:  fixtures.clientId
         _tenantId: fixtures._tenantId
@@ -35,5 +38,5 @@ module.exports = loadServer = (cb) ->
     return cb err if err
     databaseCleaner loggingEnabled, (err) ->
       return cb err if err
-      server.pack.register pluginConf, (err) ->
+      server.register pluginConf, (err) ->
         cb err,server

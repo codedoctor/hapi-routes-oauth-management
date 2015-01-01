@@ -28,7 +28,7 @@ When passing a function to the _tenantId the signature needs to be as follows:
 
 ```
 ###
-module.exports.register = (plugin, options = {}, cb) ->
+module.exports.register = (server, options = {}, cb) ->
 
   defaults =
     routesAppsBaseName: 'oauth-apps'
@@ -36,10 +36,10 @@ module.exports.register = (plugin, options = {}, cb) ->
     serverAdminScopeName: 'server-admin'
   options = Hoek.applyToDefaults defaults, options
 
-  routesOauthApps plugin,options
-  routesOauthScopes plugin,options
+  routesOauthApps server,options
+  routesOauthScopes server,options
 
-  plugin.expose 'i18n',i18n
+  server.expose 'i18n',i18n
 
   cb()
 

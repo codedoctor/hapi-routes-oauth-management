@@ -5,7 +5,7 @@ module.exports = (server,cb) ->
   oauthApps = [fixtures.oauthApp1,fixtures.oauthApp2,fixtures.oauthAppInternal1]
   delete r.id for r in oauthApps
 
-  methods = server.pack.plugins['hapi-oauth-store-multi-tenant'].methods
+  methods = server.plugins['hapi-oauth-store-multi-tenant'].methods
 
   addOauthApp = (oauthAppData,cb) ->
     methods.oauthApps.create fixtures._tenantId,oauthAppData,null, (err,oauthApp) ->
