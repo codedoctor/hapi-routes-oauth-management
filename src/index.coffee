@@ -28,8 +28,16 @@ When passing a function to the _tenantId the signature needs to be as follows:
 ###
 
 routesToExpose = [
-  require './routes-oauth-apps'
-  require './routes-oauth-scopes'
+  require './routes-oauth-apps-get'
+  require './routes-oauth-apps-oauthappid-delete'
+  require './routes-oauth-apps-oauthappid-get'
+  require './routes-oauth-apps-oauthappid-patch'
+  require './routes-oauth-apps-post'
+  require './routes-oauth-scopes-get'
+  require './routes-oauth-scopes-oauthscopeid-delete'
+  require './routes-oauth-scopes-oauthscopeid-get'
+  require './routes-oauth-scopes-oauthscopeid-patch'
+  require './routes-oauth-scopes-post'
 ]
 
 
