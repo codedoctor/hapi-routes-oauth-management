@@ -2,8 +2,9 @@ _ = require 'underscore'
 apiPagination = require 'api-pagination'
 Boom = require 'boom'
 Hoek = require "hoek"
+Joi = require 'joi'
 
-helperObjToRest = require './helper-obj-to-rest'
+helperObjToRestOauthApp = require './helper-obj-to-rest-oauth-app'
 i18n = require './i18n'
 validationSchemas = require './validation-schemas'
 
@@ -65,7 +66,7 @@ module.exports = (plugin,options = {}) ->
 
           baseUrl = fnOauthAppsBaseUrl()
 
-          oauthAppsResult.items = _.map(oauthAppsResult.items, (x) -> helperObjToRest.oauthApp(x,baseUrl,isInServerAdmin) )   
+          oauthAppsResult.items = _.map(oauthAppsResult.items, (x) -> helperObjToRestOauthApp(x,baseUrl,isInServerAdmin) )   
 
           reply( apiPagination.toRest( oauthAppsResult,baseUrl))
 
@@ -87,7 +88,7 @@ module.exports = (plugin,options = {}) ->
           return reply err if err
 
           baseUrl = fnOauthAppsBaseUrl()
-          reply(helperObjToRest.oauthApp(oauthApp,baseUrl,isInServerAdmin)).code(201)
+          reply(helperObjToRestOauthApp(oauthApp,baseUrl,isInServerAdmin)).code(201)
 
 
   plugin.route
@@ -132,7 +133,7 @@ module.exports = (plugin,options = {}) ->
 
           methodsOauthApps().patch request.params.oauthAppId, request.payload, null,  (err,oauthApp) ->
             return reply err if err          
-            reply(helperObjToRest.oauthApp(oauthApp,baseUrl,isInServerAdmin)).code(200)
+            reply(helperObjToRestOauthApp(oauthApp,baseUrl,isInServerAdmin)).code(200)
 
   plugin.route
     path: "/#{options.routesAppsBaseName}/{oauthAppId}"
@@ -153,5 +154,5 @@ module.exports = (plugin,options = {}) ->
           return reply Boom.notFound(request.url) unless oauthApp
 
           baseUrl = fnOauthAppsBaseUrl()
-          reply(helperObjToRest.oauthApp(oauthApp,baseUrl,isInServerAdmin)).code(200)
+          reply(helperObjToRestOauthApp(oauthApp,baseUrl,isInServerAdmin)).code(200)
 

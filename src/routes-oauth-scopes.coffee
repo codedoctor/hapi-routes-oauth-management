@@ -1,9 +1,10 @@
 _ = require 'underscore'
 apiPagination = require 'api-pagination'
 Boom = require 'boom'
-Hoek = require "hoek"
+Hoek = require 'hoek'
+Joi = require 'joi'
 
-helperObjToRest = require './helper-obj-to-rest'
+helperObjToRestOauthScope = require './helper-obj-to-rest-oauth-scope'
 i18n = require './i18n'
 validationSchemas = require './validation-schemas'
 
@@ -65,7 +66,7 @@ module.exports = (plugin,options = {}) ->
 
           baseUrl = fnOauthScopesBaseUrl()
 
-          oauthScopesResult.items = _.map(oauthScopesResult.items, (x) -> helperObjToRest.oauthScope(x,baseUrl,isInServerAdmin) )   
+          oauthScopesResult.items = _.map(oauthScopesResult.items, (x) -> helperObjToRestOauthScope(x,baseUrl,isInServerAdmin) )   
 
           reply( apiPagination.toRest( oauthScopesResult,baseUrl))
 
@@ -87,7 +88,7 @@ module.exports = (plugin,options = {}) ->
           return reply err if err
 
           baseUrl = fnOauthScopesBaseUrl()
-          reply(helperObjToRest.oauthScope(oauthScope,baseUrl,isInServerAdmin)).code(201)
+          reply(helperObjToRestOauthScope(oauthScope,baseUrl,isInServerAdmin)).code(201)
 
 
   plugin.route
@@ -132,7 +133,7 @@ module.exports = (plugin,options = {}) ->
 
           methodsOauthScopes().patch request.params.oauthScopeId, request.payload, null,  (err,oauthScope) ->
             return reply err if err          
-            reply(helperObjToRest.oauthScope(oauthScope,baseUrl,isInServerAdmin)).code(200)
+            reply(helperObjToRestOauthScope(oauthScope,baseUrl,isInServerAdmin)).code(200)
 
   plugin.route
     path: "/#{options.routesScopesBaseName}/{oauthScopeId}"
@@ -153,5 +154,5 @@ module.exports = (plugin,options = {}) ->
           return reply Boom.notFound(request.url) unless oauthScope
 
           baseUrl = fnOauthScopesBaseUrl()
-          reply(helperObjToRest.oauthScope(oauthScope,baseUrl,isInServerAdmin)).code(200)
+          reply(helperObjToRestOauthScope(oauthScope,baseUrl,isInServerAdmin)).code(200)
 

@@ -35,31 +35,14 @@
           <td>src</td>
         </tr>
       </table>
-      <h2>Method Summary</h2>
-      <ul class='summary'>
-  <li>
-    <span class='signature'>
-      <a href='#register-'>
-        ~
-(void)
-<b>register</b><span>(server, options = {}, cb)</span>
-      </a>
-    </span>
-    <span class='desc'>
-      Main entry point for the plugin <p>When passing a function to the _tenantId the signature needs to be as follows:</p><p>```coffeescript fnAccountId = (request,cb) -&gt;
-    _tenantId = null</p>
-    </span>
-  </li>
-</ul>
-      <h2>Method Details</h2>
-      <div class='methods'>
-  <div class='method_details'>
-    <p class='signature' id='register-'>
-      ~
-(void)
-<b>register</b><span>(server, options = {}, cb)</span>
-      <br>
-    </p>
+      <h2>Variables Summary</h2>
+      <dl class='constants'>
+  <dt id='routesToExpose-variable'>
+    routesToExpose
+    =
+  </dt>
+  <dd>
+    <pre><code class='coffeescript'>[require(&#39;.&#47;routes-oauth-apps&#39;), require(&#39;.&#47;routes-oauth-scopes&#39;)]</code></pre>
     <div class='docstring'>
   <p>Main entry point for the plugin</p><p>When passing a function to the _tenantId the signature needs to be as follows:</p><p>```coffeescript fnAccountId = (request,cb) -&gt;
     _tenantId = null</p><pre><code># lookup _tenantId here ...
@@ -147,11 +130,37 @@ cb null, _tenantId
     </li>
   </ul>
 </div>
+  </dd>
+</dl>
+      <h2>Method Summary</h2>
+      <ul class='summary'>
+  <li>
+    <span class='signature'>
+      <a href='#register-'>
+        ~
+(void)
+<b>register</b><span>(server, options = {}, cb)</span>
+      </a>
+    </span>
+    <span class='desc'>
+    </span>
+  </li>
+</ul>
+      <h2>Method Details</h2>
+      <div class='methods'>
+  <div class='method_details'>
+    <p class='signature' id='register-'>
+      ~
+(void)
+<b>register</b><span>(server, options = {}, cb)</span>
+      <br>
+    </p>
+    
   </div>
 </div>
     </div>
     <div id='footer'>
-  August 09, 15 11:43:28 by
+  August 09, 15 11:55:31 by
   <a href='https://github.com/coffeedoc/codo' title='CoffeeScript API documentation generator'>
     Codo
   </a>

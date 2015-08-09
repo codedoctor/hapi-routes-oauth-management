@@ -4,8 +4,6 @@
 
 Hoek = require 'hoek'
 i18n = require './i18n'
-routesOauthApps = require './routes-oauth-apps'
-routesOauthScopes = require './routes-oauth-scopes'
 
 ###
 Main entry point for the plugin
@@ -28,6 +26,13 @@ When passing a function to the _tenantId the signature needs to be as follows:
 
 ```
 ###
+
+routesToExpose = [
+  require './routes-oauth-apps'
+  require './routes-oauth-scopes'
+]
+
+
 module.exports.register = (server, options = {}, cb) ->
 
   defaults =
@@ -36,8 +41,7 @@ module.exports.register = (server, options = {}, cb) ->
     serverAdminScopeName: 'server-admin'
   options = Hoek.applyToDefaults defaults, options
 
-  routesOauthApps server,options
-  routesOauthScopes server,options
+  r server,options for r in routesToExpose
 
   server.expose 'i18n',i18n
 
