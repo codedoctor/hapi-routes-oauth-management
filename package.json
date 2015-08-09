@@ -10,7 +10,7 @@
   "scripts": {
     "test": "node_modules/.bin/grunt testandcoverage"
   },
-  "description": "Provides API endpoints for HAPI servers to manage roles. DO NOT USE YET",
+  "description": "Provides API endpoints for HAPI servers to manage oauth scopes and apps.",
   "dependencies": {
     "api-pagination": "1.0.6",
     "hoek": "2.14.0",

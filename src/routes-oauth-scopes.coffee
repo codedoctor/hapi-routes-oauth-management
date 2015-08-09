@@ -20,9 +20,6 @@ module.exports = (plugin,options = {}) ->
   methodsOauthScopes = -> hapiOauthStoreMultiTenant().methods.oauthScopes
   Hoek.assert methodsOauthScopes(),i18n.couldNotFindMethodsOauthScopes
 
-  fnRaise404 = (request,reply) ->
-    reply Boom.notFound("#{i18n.notFoundPrefix} #{options.baseUrl}#{request.path}")
-
   ###
   Returns the _tenantId to use.
   ###
@@ -48,8 +45,9 @@ module.exports = (plugin,options = {}) ->
     path: "/#{options.routesScopesBaseName}"
     method: "GET"
     config:
+      tags: options.routeTagsPublic
       validate:
-        params: validationSchemas.paramsOauthScopesGet
+        params: Joi.object().keys()
     handler: (request, reply) ->
       fnAccountId request, (err,_tenantId) ->
         return reply err if err
@@ -75,8 +73,9 @@ module.exports = (plugin,options = {}) ->
     path: "/#{options.routesScopesBaseName}"
     method: "POST"
     config:
+      tags: options.routeTagsAdmin
       validate:
-        payload: validationSchemas.payloadOauthScopesPost
+        payload: Joi.object().options({ allowUnknown: true, stripUnknown: false })
     handler: (request, reply) ->
       fnAccountId request, (err,_tenantId) ->
         return reply err if err
@@ -95,8 +94,11 @@ module.exports = (plugin,options = {}) ->
     path: "/#{options.routesScopesBaseName}/{oauthScopeId}"
     method: "DELETE"
     config:
+      tags: options.routeTagsAdmin
       validate:
-        params: validationSchemas.paramsOauthScopesDelete
+        params: Joi.object().keys(
+                                oauthScopeId: validationSchemas.validateId.required() 
+                      )
     handler: (request, reply) ->
       fnAccountId request, (err,_tenantId) ->
         return reply err if err
@@ -114,9 +116,12 @@ module.exports = (plugin,options = {}) ->
     path: "/#{options.routesScopesBaseName}/{oauthScopeId}"
     method: "PATCH"
     config:
+      tags: options.routeTagsAdmin
       validate:
-        params: validationSchemas.paramsOauthScopesPatch
-        payload: validationSchemas.payloadOauthScopesPatch
+        params: Joi.object().keys(
+                        oauthScopeId: validationSchemas.validateId.required() 
+                    )
+        payload: Joi.object().keys().options({ allowUnknown: true, stripUnknown: false }) 
     handler: (request, reply) ->
       fnAccountId request, (err,_tenantId) ->
         return reply err if err
@@ -139,8 +144,11 @@ module.exports = (plugin,options = {}) ->
     path: "/#{options.routesScopesBaseName}/{oauthScopeId}"
     method: "GET"
     config:
+      tags: options.routeTagsPublic
       validate:
-        params: validationSchemas.paramsOauthScopesGetOne
+        params: Joi.object().keys(
+                        oauthScopeId: validationSchemas.validateId.required() 
+                      )
     handler: (request, reply) ->
       fnAccountId request, (err,_tenantId) ->
         return reply err if err

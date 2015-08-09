@@ -44,41 +44,6 @@
   <dd>
     <pre><code class='coffeescript'>{
   validateId: validateId,
-  paramsOauthScopesDelete: Joi.object().keys({
-    oauthScopeId: validateId.required()
-  }),
-  paramsOauthScopesPatch: Joi.object().keys({
-    oauthScopeId: validateId.required()
-  }),
-  paramsOauthScopesGet: Joi.object().keys(),
-  paramsOauthScopesGetOne: Joi.object().keys({
-    oauthScopeId: validateId.required()
-  }),
-  payloadOauthScopesPatch: Joi.object().keys().options({
-    allowUnknown: true,
-    stripUnknown: false
-  }),
-  payloadOauthScopesPost: Joi.object().options({
-    allowUnknown: true,
-    stripUnknown: false
-  }),
-
-  &#47;*
-    _tenantId:
-      type: mongoose.Schema.ObjectId
-      require: true
-    name:
-      type : String
-    description:
-      type : String
-      default: &#39;&#39;
-    developerDescription:
-      type : String
-      default: &#39;&#39;
-    roles:
-      type: [String]
-      default: -&gt; []
-   *&#47;
   paramsOauthAppsDelete: Joi.object().keys({
     oauthAppId: validateId.required()
   }),
@@ -103,7 +68,7 @@
 </dl>
     </div>
     <div id='footer'>
-  August 09, 15 11:55:31 by
+  August 09, 15 12:09:01 by
   <a href='https://github.com/coffeedoc/codo' title='CoffeeScript API documentation generator'>
     Codo
   </a>

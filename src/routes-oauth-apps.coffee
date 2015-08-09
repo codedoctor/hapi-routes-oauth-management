@@ -8,6 +8,8 @@ helperObjToRestOauthApp = require './helper-obj-to-rest-oauth-app'
 i18n = require './i18n'
 validationSchemas = require './validation-schemas'
 
+
+
 module.exports = (plugin,options = {}) ->
   Hoek.assert options._tenantId, i18n.optionsAccountIdRequired
   Hoek.assert options.baseUrl,i18n.optionsBaseUrlRequired
@@ -20,8 +22,6 @@ module.exports = (plugin,options = {}) ->
   methodsOauthApps = -> hapiOauthStoreMultiTenant().methods.oauthApps
   Hoek.assert methodsOauthApps(),i18n.couldNotFindMethodsOauthApps
 
-  fnRaise404 = (request,reply) ->
-    reply Boom.notFound("#{i18n.notFoundPrefix} #{options.baseUrl}#{request.path}")
 
   ###
   Returns the _tenantId to use.
@@ -48,8 +48,9 @@ module.exports = (plugin,options = {}) ->
     path: "/#{options.routesAppsBaseName}"
     method: "GET"
     config:
+      tags: options.routeTagsPublic
       validate:
-        params: validationSchemas.paramsOauthAppsGet
+        params: Joi.object().keys()
     handler: (request, reply) ->
       fnAccountId request, (err,_tenantId) ->
         return reply err if err
@@ -75,8 +76,9 @@ module.exports = (plugin,options = {}) ->
     path: "/#{options.routesAppsBaseName}"
     method: "POST"
     config:
+      tags: options.routeTagsPublic
       validate:
-        payload: validationSchemas.payloadOauthAppsPost
+        payload: Joi.object().keys().options({ allowUnknown: true, stripUnknown: false })
     handler: (request, reply) ->
       fnAccountId request, (err,_tenantId) ->
         return reply err if err
@@ -95,8 +97,12 @@ module.exports = (plugin,options = {}) ->
     path: "/#{options.routesAppsBaseName}/{oauthAppId}"
     method: "DELETE"
     config:
+      tags: options.routeTagsPublic
       validate:
-        params: validationSchemas.paramsOauthAppsDelete
+        params: Joi.object().keys(
+                      oauthAppId: validationSchemas.validateId.required() 
+                )
+
     handler: (request, reply) ->
       fnAccountId request, (err,_tenantId) ->
         return reply err if err
@@ -114,9 +120,12 @@ module.exports = (plugin,options = {}) ->
     path: "/#{options.routesAppsBaseName}/{oauthAppId}"
     method: "PATCH"
     config:
+      tags: options.routeTagsPublic
       validate:
-        params: validationSchemas.paramsOauthAppsPatch
-        payload: validationSchemas.payloadOauthAppsPatch
+        params: Joi.object().keys(
+                        oauthAppId: validationSchemas.validateId.required() 
+                  )
+        payload: Joi.object().keys().options({ allowUnknown: true, stripUnknown: false }) 
     handler: (request, reply) ->
       fnAccountId request, (err,_tenantId) ->
         return reply err if err
@@ -139,8 +148,11 @@ module.exports = (plugin,options = {}) ->
     path: "/#{options.routesAppsBaseName}/{oauthAppId}"
     method: "GET"
     config:
+      tags: options.routeTagsPublic
       validate:
-        params: validationSchemas.paramsOauthAppsGetOne
+        params: Joi.object().keys(
+                            oauthAppId: validationSchemas.validateId.required() 
+                  )
     handler: (request, reply) ->
       fnAccountId request, (err,_tenantId) ->
         return reply err if err

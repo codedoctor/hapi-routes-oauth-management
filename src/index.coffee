@@ -39,6 +39,8 @@ module.exports.register = (server, options = {}, cb) ->
     routesAppsBaseName: 'oauth-apps'
     routesScopesBaseName: 'oauth-scopes'
     serverAdminScopeName: 'server-admin'
+    routeTagsPublic: ['api','api-public']
+    routeTagsAdmin: ['api','api-admin']
   options = Hoek.applyToDefaults defaults, options
 
   r server,options for r in routesToExpose
