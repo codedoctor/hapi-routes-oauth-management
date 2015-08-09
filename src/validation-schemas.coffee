@@ -19,8 +19,8 @@ module.exports =
       oauthScopeId: validateId.required() 
     )
 
-  payloadOauthScopesPatch: Joi.object().keys().options({ allowUnkown: true, stripUnknown: false }) 
-  payloadOauthScopesPost: Joi.object().options({ allowUnkown: true, stripUnknown: false })
+  payloadOauthScopesPatch: Joi.object().keys().options({ allowUnknown: true, stripUnknown: false }) 
+  payloadOauthScopesPost: Joi.object().options({ allowUnknown: true, stripUnknown: false })
 
     ###
       _tenantId:
@@ -53,6 +53,6 @@ module.exports =
       oauthAppId: validateId.required() 
     )
 
-  payloadOauthAppsPatch: Joi.object().keys().options({ allowUnkown: true, stripUnknown: false }) 
-  payloadOauthAppsPost: Joi.object().keys().options({ allowUnkown: true, stripUnknown: false })
+  payloadOauthAppsPatch: Joi.object().keys().options({ allowUnknown: true, stripUnknown: false }) 
+  payloadOauthAppsPost: Joi.object().keys().options({ allowUnknown: true, stripUnknown: false })
 
