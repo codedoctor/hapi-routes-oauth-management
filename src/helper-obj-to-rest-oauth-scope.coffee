@@ -6,6 +6,7 @@ module.exports = (oauthScope,baseUrl,isInAdminScope) ->
     res = 
       _url : "#{baseUrl}/#{oauthScope._id}"
       id : oauthScope._id
+      _id : oauthScope._id
       name: oauthScope.name
       description: oauthScope.description
 
