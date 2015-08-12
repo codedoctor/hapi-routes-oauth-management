@@ -9,9 +9,10 @@ module.exports = (oauthScope,baseUrl,isInAdminScope) ->
       _id : oauthScope._id
       name: oauthScope.name
       description: oauthScope.description
+      isInternal: oauthScope.isInternal
+      developerDescription: oauthScope.developerDescription
 
     if isInAdminScope
       res._tenantId = oauthScope._tenantId
-      res.isInternal = oauthScope.isInternal
 
     res
